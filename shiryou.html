@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>はじめてのJavaScript 資料</title>
+<style>
+  body {
+    max-width: 42em;
+    margin: 2em auto 6em;
+    padding: 0 1em;
+    font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+    font-size: 17px;
+    line-height: 1.9;
+    color: #222;
+    background: #faf8f3;
+  }
+  h1 { font-size: 1.6em; border-bottom: 2px solid #222; padding-bottom: 0.2em; }
+  h2 { font-size: 1.3em; margin-top: 3em; border-bottom: 1px solid #999; }
+  h3 { font-size: 1.05em; margin-top: 2em; }
+  pre {
+    background: #fff;
+    border: 1px solid #999;
+    padding: 0.8em 1em;
+    overflow-x: auto;
+    line-height: 1.6;
+  }
+  code { font-family: Consolas, "MS Gothic", monospace; font-size: 0.95em; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+  th, td { border: 1px solid #999; padding: 0.4em 0.7em; text-align: left; vertical-align: top; }
+  th { background: #eee; font-weight: normal; }
+  .why { border-left: 4px solid #a33; padding-left: 1em; margin: 1.2em 0; }
+  .note { color: #555; font-size: 0.9em; }
+  nav { border: 1px solid #999; padding: 0.5em 1.2em; background: #fff; }
+  nav ol { margin: 0.3em 0; }
+</style>
+</head>
+<body>
+
+<h1>はじめてのコード 資料</h1>
+<p class="note">前提知識はゼロで進めます。そらじろうが学びのある一日にするために。</p>
+
+<nav>
+  <b>目次</b>
+  <ol start="0">
+    <li><a href="#s0">そもそもの基本(プログラム、ファイル、拡張子)</a></li>
+    <li><a href="#s1">全体像(HTML、JavaScript、ブラウザ)</a></li>
+    <li><a href="#s2">作業の準備(メモ帳、UTF-8)</a></li>
+    <li><a href="#s3">まず HTML だけを書く(タグとは何か)</a></li>
+    <li><a href="#s4">最初のプログラム(JavaScript を足す)</a></li>
+    <li><a href="#err">動かないとき</a></li>
+    <li><a href="#words">用語集</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h2 id="s0">0　そもそもの基本</h2>
+
+<h3>プログラムとは</h3>
+<p>プログラムとは、コンピューターへの<b>命令を順番に書いた文章</b>です。料理のレシピに近いものです。レシピは「卵を割る、かき混ぜる、焼く」と順番に書きます。プログラムも「この文字を表示する、ボタンが押されたらこれをする」と順番に書きます。コンピューターは、書かれたとおりに、書かれた順番で、疑わずに実行します。</p>
+<p>そのため、人間なら読み流せる打ち間違い(記号一つの抜けなど)でも、コンピューターは動けなくなります。<b>打ち間違いは誰でもします。</b>間違いを見つけて直すことも、プログラミングの大事な仕事の一部です。</p>
+
+<h3>ソースコードとは</h3>
+<p>人間が書いた命令の文章のことを<b>ソースコード</b>(source code)と呼びます。「ソース」は元(もと)、「コード」は記号の並びという意味です。つまり「プログラムの元になる文章」です。「ITエンジニアが書くようなソースコード」とは、この文章のことです。特別な魔法の文字ではなく、メモ帳で書ける普通の文字です。</p>
+
+<h3>ファイルと拡張子</h3>
+<p><b>ファイル</b>は、パソコンの中の「1枚の書類」です。ファイル名の最後にある「<code>.</code>(ドット)から後ろ」を<b>拡張子</b>(かくちょうし)と呼び、ファイルの種類を表します。</p>
+<table>
+  <tr><th>ファイル名</th><th>拡張子</th><th>種類</th></tr>
+  <tr><td>memo.txt</td><td>.txt</td><td>ただの文章(メモ帳で開く)</td></tr>
+  <tr><td>photo.jpg</td><td>.jpg</td><td>写真</td></tr>
+  <tr><td>index.html</td><td>.html</td><td>Web ページ(ブラウザで開くと画面になる)</td></tr>
+</table>
+<p>今回使う <code>index.html</code> は、中身は文章ですが、拡張子が <code>.html</code> なので、ダブルクリックするとブラウザが「Web ページだ」と判断して開きます。メモ帳で開けば、中の文章(ソースコード)が見えます。<b>同じファイルを、メモ帳は「文章」として、ブラウザは「画面」として見せる</b>のです。</p>
+<p class="note">拡張子が見えない場合は、エクスプローラーの上の「表示」→「表示」→「ファイル名拡張子」にチェックを入れると表示されます。</p>
+
+<!-- ============================================================ -->
+<h2 id="s1">1　全体像</h2>
+
+<h3>HTML とは</h3>
+<p><b>HTML</b>は <b>H</b>yper<b>T</b>ext <b>M</b>arkup <b>L</b>anguage(ハイパーテキスト・マークアップ・ランゲージ)の略です。</p>
+<table>
+  <tr><th>単語</th><th>意味</th><th>ここでの意味あい</th></tr>
+  <tr><td>Hyper Text</td><td>ハイパーテキスト</td><td>リンクで別のページへ飛べる文章</td></tr>
+  <tr><td>Markup</td><td>目印を付けること</td><td>文章に「ここは見出し」「ここは段落」と印を付ける</td></tr>
+  <tr><td>Language</td><td>言語</td><td>決まりごとのある書き方</td></tr>
+</table>
+<p>つまり HTML は「文章に目印を付けて、ブラウザに<b>これは何の部分か</b>を教えるための書き方」です。家でいえば柱と壁にあたり、画面の骨組みを作ります。</p>
+
+<h3>JavaScript とは</h3>
+<p><b>JavaScript</b>は、画面に<b>動き</b>を付けるための言語です。ボタンを押したら文字が変わる、入力した内容が一覧に追加される、といった動きを作ります。家でいえば電気の配線で、スイッチを押すと明かりがつく仕組みにあたります。</p>
+<p class="why"><b>注意:</b>名前が似ている「Java」とは、まったく別の言語です。「インド」と「インドネシア」くらい違います。名前が似ているのは歴史的な経緯で、気にする必要はありません。</p>
+
+<h3>ブラウザとは</h3>
+<p><b>ブラウザ</b>(Edge、Chrome など)は、HTML と JavaScript を読んで、画面に表示して動かすアプリです。私たちが書くのは「楽譜」で、ブラウザは「演奏する人」です。</p>
+
+<h3>三つの関係</h3>
+<pre><code>あなたが書く(メモ帳)
+   ↓ index.html に保存
+ブラウザが読む
+   ├ HTML の部分       → 画面の骨組みを作る
+   └ JavaScript の部分 → 画面に動きを付ける</code></pre>
+<p>この資料では、HTML と JavaScript を <code>index.html</code> という一つのファイルに書きます。</p>
+
+<h3>作業の流れ(これを何度も繰り返します)</h3>
+<ol>
+  <li>メモ帳で書く</li>
+  <li><code>Ctrl + S</code> で保存する</li>
+  <li>ブラウザで <code>F5</code> を押して更新する</li>
+  <li>結果を見る。思ったとおりでなければ、1 に戻る</li>
+</ol>
+<p class="why"><b>なぜ保存が必要か:</b>ブラウザが読むのは「保存されたファイル」です。メモ帳に打っただけでは、ブラウザからは見えません。<b>書いたら保存、保存したら F5</b>、が基本の動作です。</p>
+
+<!-- ============================================================ -->
+<h2 id="s2">2　作業の準備</h2>
+
+<h3>メモ帳で開く</h3>
+<ol>
+  <li>エクスプローラーで作業フォルダを開きます。</li>
+  <li><code>index.html</code> を<b>右クリック</b>します。</li>
+  <li>「<b>プログラムから開く</b>」を選びます。</li>
+  <li>「<b>メモ帳</b>」を選びます。</li>
+</ol>
+<p class="why"><b>なぜ右クリックから開くのか:</b>ダブルクリックだと、ブラウザが開いて「画面」として表示されます。書き込みたいときは、メモ帳で「文章」として開く必要があります。</p>
+
+<h3>UTF-8 で保存する</h3>
+<p><b>文字コード</b>とは、文字をコンピューターが扱える数字に置き換える約束事です。「あ」は何番、「A」は何番、と番号表のようなものがあります。この番号表には種類があり、書いたときと読むときで種類が食い違うと、「縺薙ｓ」のような意味のない文字になります。これを<b>文字化け</b>と呼びます。</p>
+<p>これを防ぐため、番号表を <b>UTF-8</b>(ユーティーエフ・エイト)に統一します。世界中の文字を扱え、Web ではほぼ標準です。</p>
+<ol>
+  <li>メモ帳で「ファイル」→「名前を付けて保存」を選びます。</li>
+  <li>下にある「<b>文字コード</b>」を「<b>UTF-8</b>」にします。「UTF-8 (BOM付き)」は選びません。</li>
+  <li>「保存」を押します。上書きの確認が出たら「はい」を選びます(中身は空なので問題ありません)。</li>
+</ol>
+<p>2回目からは <code>Ctrl + S</code> だけで、同じ設定のまま保存されます。</p>
+
+<!-- ============================================================ -->
+<h2 id="s3">3　まず HTML だけを書く</h2>
+<p>いきなり JavaScript を書く前に、HTML だけで画面を作ってみます。ここで「タグ」の考え方を理解すれば、次の章がずっと読みやすくなります。</p>
+
+<h3>やってみる</h3>
+<p><code>index.html</code> に、次の1行だけを打って保存し、ブラウザで開いてみてください。(この後、中身は書き換えます。)</p>
+<pre><code>&lt;p&gt;こんにちは&lt;/p&gt;</code></pre>
+<p>画面に「こんにちは」と出ます。<code>&lt;p&gt;</code> や <code>&lt;/p&gt;</code> は画面に出ません。これは<b>命令であって、表示する文字ではない</b>からです。</p>
+
+<h3>タグとは</h3>
+<p><code>&lt;</code> と <code>&gt;</code> で囲まれた部分を<b>タグ</b>と呼びます。荷物に貼る「ラベル」のようなものです。「この中身は割れ物です」というラベルが荷物の扱いを決めるように、タグは「この中身は段落です」とブラウザに伝えます。</p>
+<pre><code>&lt;p&gt;  こんにちは  &lt;/p&gt;
+ ↑        ↑         ↑
+開始タグ   中身     終了タグ</code></pre>
+<ul>
+  <li><b>開始タグ</b> <code>&lt;p&gt;</code>:ここから始まります、という印</li>
+  <li><b>終了タグ</b> <code>&lt;/p&gt;</code>:ここで終わりです、という印。<b>スラッシュ <code>/</code> が付く</b>のが目印です</li>
+  <li>この三つ(開始タグ、中身、終了タグ)をまとめて<b>要素</b>(ようそ)と呼びます</li>
+</ul>
+
+<h3>なぜ「p」で囲うのか</h3>
+<p><code>p</code> は <b>paragraph</b>(パラグラフ、段落)の頭文字です。<code>&lt;p&gt;…&lt;/p&gt;</code> で囲むと、「この文章は一つの段落だ」とブラウザに伝わります。</p>
+<p class="why"><b>囲わなかったらどうなるか:</b>文章だけを書いても表示はされます。ただ、ブラウザは「何の文章か」を知らないので、段落としての余白も付きません。HTML は「中身に意味を与える」ものなので、<b>中身は必ず何かのタグで囲う</b>のが基本です。</p>
+<p>タグは <code>p</code> だけではありません。よく使うものを挙げます。</p>
+<table>
+  <tr><th>タグ</th><th>由来</th><th>意味</th></tr>
+  <tr><td><code>&lt;p&gt;</code></td><td>paragraph</td><td>段落</td></tr>
+  <tr><td><code>&lt;h1&gt;</code></td><td>heading 1</td><td>一番大きい見出し</td></tr>
+  <tr><td><code>&lt;button&gt;</code></td><td>button</td><td>ボタン</td></tr>
+  <tr><td><code>&lt;input&gt;</code></td><td>input</td><td>入力欄</td></tr>
+  <tr><td><code>&lt;ul&gt; &lt;li&gt;</code></td><td>unordered list / list item</td><td>箇条書きの全体 / その1項目</td></tr>
+</table>
+<p>ToDo リストを作る段階で、<code>button</code>、<code>input</code>、<code>ul</code>、<code>li</code> を実際に使います。今は覚えなくて大丈夫です。</p>
+
+<h3>タグの入れ子</h3>
+<p>タグの中にタグを入れられます。これを<b>入れ子</b>と呼びます。箱の中に小さい箱を入れるイメージです。</p>
+<pre><code>&lt;ul&gt;
+  &lt;li&gt;牛乳&lt;/li&gt;
+  &lt;li&gt;パン&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<p>内側の <code>li</code> を2つとも閉じてから、外側の <code>ul</code> を閉じます。<b>先に開いたものを、最後に閉じる</b>のが決まりです。<code>li</code> が少し右にずれて書いてあるのは<b>インデント</b>(字下げ)と言い、入れ子の関係を人間が見やすくするためのものです。ブラウザは字下げを気にしませんが、あなたが後で読むときに大きく助かります。</p>
+
+<h3>属性とは</h3>
+<p>開始タグの中に、追加の情報を書けます。これを<b>属性</b>(ぞくせい)と呼びます。</p>
+<pre><code>&lt;p id="message"&gt;こんにちは&lt;/p&gt;
+   ↑
+  属性名="属性の値"</code></pre>
+<p>属性は、荷物に貼る「宛名シール」のようなものです。<code>id</code> は <b>identifier</b>(識別するもの)の略で、要素に付ける<b>名前</b>です。次の章で JavaScript が「あの段落を書き換えて」と指名するときに、この名前を使います。</p>
+<p class="why"><b>注意:</b>同じページの中で、同じ <code>id</code> を2つ以上の要素に付けてはいけません。名前が重複して、どれを指すか分からなくなるからです。</p>
+
+<h3>ページ全体の骨組み</h3>
+<p>Web ページには、決まった「型」があります。<code>&lt;p&gt;</code> 1行だけでもブラウザは表示してくれますが、正式には次のように書きます。</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;はじめてのページ&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  ここに画面に出す内容を書く
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<table>
+  <tr><th>部分</th><th>意味</th></tr>
+  <tr><td><code>&lt;!DOCTYPE html&gt;</code></td><td>「このファイルは HTML で書かれています」という宣言。ファイルの<b>1行目</b>に必ず書きます。</td></tr>
+  <tr><td><code>&lt;html lang="ja"&gt;…&lt;/html&gt;</code></td><td>ページ全体を囲む一番外側の箱。<code>lang="ja"</code> は「日本語のページです」という属性です。</td></tr>
+  <tr><td><code>&lt;head&gt;…&lt;/head&gt;</code></td><td><b>頭</b>(head)。画面には出ない、ページの情報を入れる場所。名札のようなものです。</td></tr>
+  <tr><td><code>&lt;meta charset="UTF-8"&gt;</code></td><td>「この文章の文字コードは UTF-8 です」とブラウザに伝えます。第2章で保存時に選んだ UTF-8 と、ここで<b>同じ約束</b>をそろえています。終了タグはありません。</td></tr>
+  <tr><td><code>&lt;title&gt;…&lt;/title&gt;</code></td><td>ブラウザの<b>タブ</b>に表示される名前。</td></tr>
+  <tr><td><code>&lt;body&gt;…&lt;/body&gt;</code></td><td><b>体</b>(body)。画面に表示される内容を入れる場所。</td></tr>
+</table>
+<p>この中で、画面に見えるのは <code>body</code> の中身だけです。</p>
+
+<!-- ============================================================ -->
+<h2 id="s4">4　最初のプログラム</h2>
+<p>いよいよ JavaScript を足します。<code>index.html</code> の中身を<b>すべて消して</b>、次の内容に置き換えてください。コピーして貼ってもかまいません。</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;はじめてのページ&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p id="message"&gt;&lt;/p&gt;
+  &lt;script&gt;
+    document.getElementById("message").textContent = "こんにちは";
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>保存して、ブラウザで開く(または F5 で更新する)と、画面に「こんにちは」と出ます。</p>
+
+<h3>HTML の部分(第3章の復習)</h3>
+<p>骨組みは前章と同じです。違うのは <code>body</code> の中身だけです。</p>
+<pre><code>&lt;p id="message"&gt;&lt;/p&gt;</code></pre>
+<p><b>中身が空</b>の段落を作り、<code>message</code>(メッセージ)という名前を付けています。画面に出す文字を、あえて HTML には書いていません。<b>JavaScript に書き込ませる「空の箱」</b>を用意しているのです。</p>
+
+<h3>JavaScript の部分</h3>
+<pre><code>&lt;script&gt;
+  document.getElementById("message").textContent = "こんにちは";
+&lt;/script&gt;</code></pre>
+<p><code>&lt;script&gt;…&lt;/script&gt;</code> の間は、HTML ではなく JavaScript として読まれます。<code>script</code> は「台本」という意味です。ここに書いた命令を、ブラウザが上から順に実行します。</p>
+
+<p>中心の1行を、細かく分けて読みます。</p>
+<pre><code>document . getElementById ( "message" ) . textContent = "こんにちは" ;</code></pre>
+<table>
+  <tr><th>部分</th><th>意味</th></tr>
+  <tr><td><code>document</code></td><td>「このページ全体」を指す言葉。JavaScript の側で、最初から使えるように用意されています。</td></tr>
+  <tr><td><code>.</code>(ドット)</td><td>「の」と読むと分かりやすい記号。<code>document.getElementById</code> は「ページの、getElementById」。</td></tr>
+  <tr><td><code>getElementById</code></td><td>「ID で要素を取ってくる」という意味の英語(get Element By Id)。<b>要素を探して手に取る</b>命令です。</td></tr>
+  <tr><td><code>("message")</code></td><td>カッコの中に、探したい名前を渡します。HTML で付けた <code>id="message"</code> と、<b>一字一句同じ</b>にします。</td></tr>
+  <tr><td><code>textContent</code></td><td>要素の「中の文字」。直訳すると「文章の中身」です。</td></tr>
+  <tr><td><code>=</code></td><td>数学の「等しい」ではなく、<b>右の値を左に入れる</b>(代入)という意味です。</td></tr>
+  <tr><td><code>"こんにちは"</code></td><td>入れる文字。</td></tr>
+  <tr><td><code>;</code>(セミコロン)</td><td>「この命令はここで終わり」という印。日本語の句点「。」にあたります。</td></tr>
+</table>
+
+<p>全体を日本語にすると、こうなります。</p>
+<p class="why">「このページの中から、<code>message</code> という名前の要素を探し、その中の文字を『こんにちは』にする」</p>
+
+<h3>なぜ「こんにちは」を引用符で囲うのか</h3>
+<p><code>"</code>(ダブルクォーテーション)で囲んだものは、<b>ただの文字</b>として扱われます。囲まないと、JavaScript は「こんにちは」を<b>命令や変数の名前</b>だと思って探し始め、見つからずにエラーになります。「文字として扱ってほしいものは、<code>"</code> で囲う」と覚えてください。このように引用符で囲った文字を<b>文字列</b>と呼びます。</p>
+<p>また、引用符は<b>半角</b>の <code>"</code> を使います。全角の「”」だと動きません。日本語入力のままだと全角になりやすいので、コードを打つときは<b>半角英数</b>に切り替えてください。</p>
+
+<h3>なぜ script は body の最後に書くのか</h3>
+<p>ブラウザは、ファイルを<b>上から順に</b>読みます。<code>&lt;script&gt;</code> が <code>&lt;p id="message"&gt;</code> より前にあると、「message」の箱がまだ読み込まれておらず、探しても見つかりません。だから、<b>先に箱を作り、後から JavaScript で触る</b>順番にします。</p>
+
+<h3>半角スペースと改行、インデント</h3>
+<p>HTML も JavaScript も、行頭の空白は動作に影響しません。行頭を2文字ずらしているのは、<b>入れ子の関係を人間が読みやすくするため</b>です。ただし、<code>&lt;</code> や <code>"</code> や <code>;</code> など<b>記号は、1文字でも欠けると動きません</b>。大文字と小文字も区別されます(<code>getElementById</code> を <code>getelementbyid</code> と書くとエラーになります)。</p>
+
+<h3>確認すること</h3>
+<ol>
+  <li><code>Ctrl + S</code> で保存した</li>
+  <li><code>index.html</code> をブラウザで開いた(または F5 で更新した)</li>
+  <li>画面に「こんにちは」と出た</li>
+  <li>ブラウザのタブに「はじめてのページ」と出た</li>
+</ol>
+
+<h3>ちょっと試す(壊してみる)</h3>
+<p>理解を深めるために、わざと変えてみましょう。変えたら保存して F5 を押し、何が起きるかを見てください。</p>
+<ul>
+  <li><code>"こんにちは"</code> を <code>"おはよう"</code> に変える</li>
+  <li><code>getElementById("message")</code> の <code>message</code> を <code>massage</code> に変える(HTML の名前と食い違わせる)→ 何も出なくなります。F12 でコンソールを見てください</li>
+</ul>
+<p>確認が終わったら元に戻してください。<b>壊して直す経験は、一番よい勉強</b>になります。</p>
+
+<!-- ============================================================ -->
+<h2 id="err">動かないとき</h2>
+<p>慌てて全部書き直す必要はありません。次の手順で、<b>エラーの文章を読みます</b>。</p>
+<ol>
+  <li>ブラウザで <code>F12</code> キーを押す(開発者ツールが開きます)</li>
+  <li>上の方にある「<b>コンソール</b>」タブを押す</li>
+  <li><b>赤い文字</b>が出ていれば、それがエラーです</li>
+</ol>
+
+<h3>エラー文の読み方</h3>
+<pre><code>Uncaught TypeError: Cannot set properties of null (setting 'textContent')
+    at index.html:10</code></pre>
+<ul>
+  <li><b>1行目の前半</b>(<code>TypeError</code> など)は、エラーの種類です。</li>
+  <li><b>1行目の後半</b>が、何が起きたかの説明です。上の例は「null(何もない)に対して、textContent は書き込めない」という意味で、<b>探した箱が見つからなかった</b>ことを表します。</li>
+  <li><b>末尾の <code>index.html:10</code></b> は「<code>index.html</code> の10行目」です。メモ帳でその行を見ます。</li>
+</ul>
+<p>エラー文が英語でも、全部を読む必要はありません。<b>「種類」と「何行目か」</b>の二つが分かれば、探す場所を絞れます。分からなければ、赤い文字をそのまま私に貼ってください。一緒に原因を探します。</p>
+
+<h3>画面に何も出ないとき、よくある原因</h3>
+<table>
+  <tr><th>原因</th><th>確認すること</th></tr>
+  <tr><td>保存していない</td><td>メモ帳のタイトルに <code>*</code> が付いていないか</td></tr>
+  <tr><td>更新していない</td><td>ブラウザで F5 を押したか</td></tr>
+  <tr><td>名前の食い違い</td><td>HTML の <code>id="message"</code> と、JavaScript の <code>"message"</code> が一字一句同じか</td></tr>
+  <tr><td>全角の記号</td><td><code>"</code> や <code>(</code> や <code>;</code> が半角か</td></tr>
+  <tr><td>閉じ忘れ</td><td><code>&lt;/p&gt;</code>、<code>&lt;/script&gt;</code> など、終了タグがあるか</td></tr>
+  <tr><td>大文字と小文字</td><td><code>getElementById</code> の大文字 E、B、I が合っているか</td></tr>
+  <tr><td>文字化け</td><td>UTF-8 で保存したか。<code>&lt;meta charset="UTF-8"&gt;</code> があるか</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="words">用語集</h2>
+<table>
+  <tr><th>用語</th><th>意味</th></tr>
+  <tr><td>プログラム</td><td>コンピューターへの命令を順番に書いたもの</td></tr>
+  <tr><td>ソースコード</td><td>人間が書いた、プログラムの元になる文章</td></tr>
+  <tr><td>ファイル</td><td>パソコンの中の1枚の書類</td></tr>
+  <tr><td>拡張子</td><td>ファイル名の最後の <code>.html</code> など。ファイルの種類を表す</td></tr>
+  <tr><td>HTML</td><td>HyperText Markup Language。文章に目印を付けて画面の骨組みを作る書き方</td></tr>
+  <tr><td>JavaScript</td><td>画面に動きを付ける言語。Java とは別物</td></tr>
+  <tr><td>ブラウザ</td><td>HTML と JavaScript を読んで表示するアプリ(Edge、Chrome など)</td></tr>
+  <tr><td>文字コード / UTF-8</td><td>文字を数字に置き換える約束事 / その標準的な種類</td></tr>
+  <tr><td>文字化け</td><td>文字コードが食い違って、意味のない文字になること</td></tr>
+  <tr><td>タグ</td><td><code>&lt;p&gt;</code> のような目印。何の部分かをブラウザに伝える</td></tr>
+  <tr><td>開始タグ / 終了タグ</td><td><code>&lt;p&gt;</code> / <code>&lt;/p&gt;</code>。終了タグには <code>/</code> が付く</td></tr>
+  <tr><td>要素</td><td>開始タグ、中身、終了タグをまとめたもの</td></tr>
+  <tr><td>属性</td><td>開始タグの中に書く追加情報(<code>id="message"</code> など)</td></tr>
+  <tr><td>id</td><td>要素に付ける名前。JavaScript が指名するために使う</td></tr>
+  <tr><td>入れ子</td><td>タグの中にタグを入れること</td></tr>
+  <tr><td>インデント</td><td>行頭の字下げ。人間が読みやすくするためのもの</td></tr>
+  <tr><td>文字列</td><td><code>"</code> で囲んだ、ただの文字</td></tr>
+  <tr><td>代入</td><td><code>=</code> で、右の値を左に入れること</td></tr>
+  <tr><td>エラー</td><td>プログラムが動けないときに出る知らせ。F12 のコンソールで読める</td></tr>
+</table>
+
+<p class="note">ステップ5以降(ToDo リスト作り、変更の課題、次に学ぶこと)は、進み具合に合わせて追記します。</p>
+
+</body>
+</html>
